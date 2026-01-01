@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 
 export interface Paste {
   content: string;
@@ -14,4 +14,8 @@ export interface PasteResponse {
   expires_at: string | null;
 }
 
-export const kvClient = kv;
+// Initialize Upstash Redis client
+export const kvClient = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
